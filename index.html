@@ -1,136 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flappy Bird</title>
+  <meta charset="UTF-8">
+  <title>Age Verification</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    * {
       margin: 0;
-      background-color: #70c5ce;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       overflow: hidden;
     }
 
-    canvas {
-      display: block;
-      margin: auto;
-      background: #70c5ce;
+    .popup {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 40px 20px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .icon {
+      font-size: 64px;
+      color: #ff2c5d;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #000000;
+      margin-bottom: 8px;
+    }
+
+    .desc {
+      font-size: 14px;
+      color: #666666;
+      margin-bottom: 28px;
+      line-height: 1.4;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 150px;
+    }
+
+    .btn-yes {
+      background-color: #ff2c5d;
+      color: white;
+    }
+
+    .btn-yes:hover {
+      background-color: #e5214b;
+    }
+
+    .btn-no {
+      background-color: white;
+      border: 1px solid #ccc;
+      color: #333;
+    }
+
+    .btn-no:hover {
+      background-color: #f2f2f2;
+    }
+
+    @media (max-width: 480px) {
+      .btn {
+        min-width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <canvas id="gameCanvas" width="320" height="480"></canvas>
+
+  <div class="popup">
+    <div class="title">Giải trí có trách nhiệm</div>
+    <div class="desc">Vui lòng xác nhận rằng bạn đáp ứng đủ độ tuổi hợp pháp để tiếp tục</div>
+     <div class="buttons">
+            <button class="btn btn-yes" onclick="enterSite()">Tôi muốn tiếp tục</button>
+      <button class="btn btn-no" onclick="goBack()">Tôi muốn quay lại</button>
+    </div>
+  </div>
 
   <script>
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-
-    const GRAVITY = 0.6;
-    const FLAP = -10;
-    const PIPE_WIDTH = 50;
-    const PIPE_GAP = 120;
-    let score = 0;
-
-    let bird = {
-      x: 50,
-      y: 150,
-      width: 30,
-      height: 30,
-      velocity: 0
-    };
-
-    let pipes = [];
-
-    function resetPipes() {
-      pipes = [];
-      for (let i = 0; i < 3; i++) {
-        let pipeTop = Math.random() * (canvas.height - PIPE_GAP - 100) + 20;
-        pipes.push({
-          x: 320 + i * 200,
-          top: pipeTop,
-          bottom: pipeTop + PIPE_GAP
-        });
-      }
+    function enterSite() {
+      window.location.href = 'https://ssd5.whskxk6.com/mobile/?target=1&inviteCode=7271360&fb_dynamic_pixel=1258992879118941&mode=pwa&jsbrige=1#/login?type=register&source_from=2';
     }
 
-    function drawBird() {
-      ctx.fillStyle = "yellow";
-      ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
+    function goBack() {
+      window.location.href = 'https://ssd5.whskxk6.com/mobile/?target=1&inviteCode=7271360&fb_dynamic_pixel=1258992879118941&mode=pwa&jsbrige=1#/login?type=register&source_from=2';
     }
-
-    function drawPipes() {
-      ctx.fillStyle = "green";
-      pipes.forEach(pipe => {
-        ctx.fillRect(pipe.x, 0, PIPE_WIDTH, pipe.top);
-        ctx.fillRect(pipe.x, pipe.bottom, PIPE_WIDTH, canvas.height - pipe.bottom);
-      });
-    }
-
-    function update() {
-      bird.velocity += GRAVITY;
-      bird.y += bird.velocity;
-
-      pipes.forEach(pipe => {
-        pipe.x -= 2;
-
-        // Check score
-        if (pipe.x + PIPE_WIDTH === bird.x) {
-          score++;
-        }
-
-        // Check collision
-        if (
-          bird.x < pipe.x + PIPE_WIDTH &&
-          bird.x + bird.width > pipe.x &&
-          (bird.y < pipe.top || bird.y + bird.height > pipe.bottom)
-        ) {
-          restartGame();
-        }
-
-        if (pipe.x + PIPE_WIDTH < 0) {
-          let newTop = Math.random() * (canvas.height - PIPE_GAP - 100) + 20;
-          pipe.x = 320;
-          pipe.top = newTop;
-          pipe.bottom = newTop + PIPE_GAP;
-        }
-      });
-
-      // Ground collision
-      if (bird.y + bird.height > canvas.height || bird.y < 0) {
-        restartGame();
-      }
-    }
-
-    function restartGame() {
-      bird.y = 150;
-      bird.velocity = 0;
-      score = 0;
-      resetPipes();
-    }
-
-    function drawScore() {
-      ctx.fillStyle = "white";
-      ctx.font = "24px Arial";
-      ctx.fillText("Score: " + score, 10, 30);
-    }
-
-    function loop() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      update();
-      drawPipes();
-      drawBird();
-      drawScore();
-      requestAnimationFrame(loop);
-    }
-
-    document.addEventListener("keydown", function (e) {
-      if (e.code === "Space") {
-        bird.velocity = FLAP;
-      }
-    });
-
-    resetPipes();
-    loop();
   </script>
+
 </body>
 </html>
