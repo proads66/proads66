@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Age Verification</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .popup {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 40px 20px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .icon {
+      font-size: 64px;
+      color: #ff2c5d;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #000000;
+      margin-bottom: 8px;
+    }
+
+    .desc {
+      font-size: 14px;
+      color: #666666;
+      margin-bottom: 28px;
+      line-height: 1.4;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 150px;
+    }
+
+    .btn-yes {
+      background-color: #ff2c5d;
+      color: white;
+    }
+
+    .btn-yes:hover {
+      background-color: #e5214b;
+    }
+
+    .btn-no {
+      background-color: white;
+      border: 1px solid #ccc;
+      color: #333;
+    }
+
+    .btn-no:hover {
+      background-color: #f2f2f2;
+    }
+
+    @media (max-width: 480px) {
+      .btn {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="popup">
+    <div class="icon">18+</div>
+    <div class="title">Giải trí có trách nhiệm</div>
+    <div class="desc">Vui lòng xác nhận rằng bạn đáp ứng đủ độ tuổi hợp pháp để tiếp tục</div>
+     <div class="buttons">
+            <button class="btn btn-yes" onclick="enterSite()">Tôi muốn tiếp tục</button>
+      <button class="btn btn-no" onclick="goBack()">Tôi muốn quay lại</button>
+    </div>
+  </div>
+
+  <script>
+    function enterSite() {
+      window.location.href = 'https://ssd5.whskxk6.com/mobile/?target=1&inviteCode=7271360&fb_dynamic_pixel=1258992879118941&mode=pwa&jsbrige=1#/login?type=register&source_from=2';
+    }
+
+    function goBack() {
+      window.location.href = 'https://ssd5.whskxk6.com/mobile/?target=1&inviteCode=7271360&fb_dynamic_pixel=1258992879118941&mode=pwa&jsbrige=1#/login?type=register&source_from=2';
+    }
+  </script>
+
+</body>
+</html>
