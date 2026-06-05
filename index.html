@@ -1,137 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JGNCSJ6GB6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  gtag('config', 'G-JGNCSJ6GB6');
-</script>
-  <meta charset="UTF-8">
-  <title>Age Verification</title>
+<title>Adult Warning</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Vui lòng xác nhận độ tuổi của bạn để tiếp tục truy cập. Chúng tôi cam kết đảm bảo trải nghiệm chơi game có trách nhiệm cho người dùng đủ tuổi hợp pháp.">
+<style>
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+body{
+    height:100vh;
 
-  <style>
-    * {
-      margin: 0;
-      padding: 10px;
-      box-sizing: border-box;
-    }
+    /* Ảnh nền demo */
+    background:url('https://images.pexels.com/photos/9694475/pexels-photo-9694475.jpeg') center/cover no-repeat;
+}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-    }
+/* Overlay */
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    backdrop-filter:blur(8px);
 
-    .popup {
-      background-color: #ffffff;
-      border-radius: 12px;
-      padding: 40px 20px;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    }
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    .icon {
-      font-size: 64px;
-      color: #ff2c5d;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
+    z-index:999;
+}
 
-    .title {
-      font-size: 22px;
-      font-weight: 600;
-      color: #000000;
-      margin-bottom: 8px;
-    }
+/* Popup */
+.modal{
+    width:420px;
+    background:#050505;
+    color:#fff;
 
-    .desc {
-      font-size: 14px;
-      color: #666666;
-      margin-bottom: 28px;
-      line-height: 1.4;
-    }
+    border-radius:8px;
+    padding:30px 25px;
 
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+    text-align:center;
 
-    .btn {
-      padding: 12px 18px;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 150px;
-    }
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+}
 
-    .btn-yes {
-      background-color: #ff2c5d;
-      color: white;
-    }
+/* Text */
+.modal p{
+    font-size:15px;
+    line-height:1.7;
+    color:#f1f1f1;
+    margin-bottom:20px;
+}
 
-    .btn-yes:hover {
-      background-color: #e5214b;
-    }
+/* Button group */
+.btn-group{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:10px;
+    margin-bottom:25px;
+}
 
-    .btn-no {
-      background-color: white;
-      border: 1px solid #ccc;
-      color: #333;
-    }
+/* Buttons */
+.btn{
+    text-decoration:none;
+    padding:12px 54px;
+    border-radius:9px;
 
-    .btn-no:hover {
-      background-color: #f2f2f2;
-    }
+    font-size:15px;
+    font-weight:bold;
 
-    @media (max-width: 480px) {
-      .btn {
-        min-width: 100%;
-      }
-    }
-  </style>
+    transition:0.25s ease;
+}
+
+/* Accept */
+.accept{
+    background:#ff1493;
+    color:#fff;
+}
+
+.accept:hover{
+    background:#ff3ca8;
+    transform:scale(1.05);
+}
+
+/* Decline */
+.decline{
+    background:#2b2b2b;
+    color:#fff;
+}
+
+.decline:hover{
+    background:#444;
+    transform:scale(1.05);
+}
+
+/* Footer */
+.footer{
+    border-top:1px solid #222;
+    padding-top:18px;
+
+    color:#aaa;
+    font-size:14px;
+}
+
+/* Logo */
+.logo{
+    margin-top:8px;
+    font-size:42px;
+    font-weight:900;
+    letter-spacing:2px;
+    color:#fff;
+}
+
+</style>
 </head>
+
 <body>
 
-  <div class="popup">
-    <div class="title">Giải trí có trách nhiệm</div>
-    <div class="desc">Vui lòng xác nhận rằng bạn đáp ứng đủ độ tuổi hợp pháp để tiếp tục</div>
-     <div class="buttons">
-            <button class="btn btn-yes" onclick="enterSite()">Tôi muốn tiếp tục</button>
-      <button class="btn btn-no" onclick="goBack()">Tôi muốn quay lại</button>
+<!-- Popup -->
+<div class="overlay">
+
+    <div class="modal">
+
+        <p>
+            <strong>
+                Nội dung chỉ dành cho người trưởng thành.
+            </strong>
+
+        </p>
+
+        <p>
+            Vui lòng xác nhận độ tuổi của bạn để tiếp tục truy cập. Chúng tôi đảm bảo trải nghiệm tham gia có trách nhiệm cho người dùng đủ tuổi hợp pháp..
+        </p>
+
+        <!-- Buttons -->
+        <div class="btn-group">
+
+            <!-- Link Accept -->
+            <a href="https://t.me/+CYYiBYsh98E0ZWZl"
+               class="btn accept">
+
+               Tiếp tục
+
+            </a>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            © 2026 Zed
+            <div class="logo">
+                RTA
+            </div>
+
+        </div>
+
     </div>
-  </div>
 
-  <script>
-    function enterSite() {
-      window.location.href = 'https://ssd5.whskxk6.com/mobile/?target=1&inviteCode=7271360&fb_dynamic_pixel=1258992879118941&mode=pwa&jsbrige=1#/login?type=register&source_from=2';
-    }
-
-    function goBack() {
-      window.location.href = 'https://ssd5.whskxk6.com/mobile/?target=1&inviteCode=7271360&fb_dynamic_pixel=1258992879118941&mode=pwa&jsbrige=1#/login?type=register&source_from=2';
-    }
-  </script>
+</div>
 
 </body>
 </html>
